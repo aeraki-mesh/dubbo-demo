@@ -1,0 +1,5 @@
+FROM openjdk
+
+COPY dubbo-samples-basic-1.0-SNAPSHOT.jar ./
+ENTRYPOINT java -cp ./dubbo-samples-basic-1.0-SNAPSHOT.jar org.apache.dubbo.samples.basic.BasicProvider
+
