@@ -2,21 +2,45 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: dubbo-sample-provider
+  name: dubbo-sample-provider-v1
   labels:
     app: dubbo-sample-provider
 spec:
   selector:
     matchLabels:
       app: dubbo-sample-provider
-  replicas: 2
+  replicas: 1
   template:
     metadata:
       labels:
         app: dubbo-sample-provider
+        version: v1
     spec:
       containers:
-        - name: dubbo-sample-providerr
+        - name: dubbo-sample-provider
+          image: aeraki/dubbo-sample-provider
+          ports:
+            - containerPort: 20880
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: dubbo-sample-provider-v2
+  labels:
+    app: dubbo-sample-provider
+spec:
+  selector:
+    matchLabels:
+      app: dubbo-sample-provider
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: dubbo-sample-provider
+        version: v2
+    spec:
+      containers:
+        - name: dubbo-sample-provider
           image: aeraki/dubbo-sample-provider
           ports:
             - containerPort: 20880
@@ -49,7 +73,7 @@ spec:
   selector:
     app: dubbo-sample-provider
   ports:
-    - name: dubbo
+    - name: tcp-dubbo
       port: 20880
       protocol: TCP
       targetPort: 20880

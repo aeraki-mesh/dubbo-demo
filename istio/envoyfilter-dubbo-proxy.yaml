@@ -1,0 +1,34 @@
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: EnvoyFilter
+metadata:
+  name: add-dubbo-proxy
+  namespace: istio-system
+spec:
+  configPatches:
+  - applyTo: NETWORK_FILTER
+    match:
+      listener:
+        name:  ${dubbo-sample-provider-vip}_20880 #sed -i .bak "s/\${dubbo-sample-provider-vip}/`kubectl get svc dubbo-sample-provider -n dubbo -o=jsonpath='{.spec.clusterIP}'`/" istio/envoyfilter-dubbo-proxy.yaml 
+        filterChain:
+          filter:
+            name: "envoy.filters.network.tcp_proxy"
+    patch:du'bbo
+      operation: REPLACE
+      value:
+        name: envoy.filters.network.dubbo_proxy
+        typed_config:
+          "@type": type.googleapis.com/envoy.extensions.filters.network.dubbo_proxy.v3.DubboProxy
+          stat_prefix: outbound|20880||dubbo-sample-provider.dubbo.svc.cluster.local
+          protocol_type: Dubbo
+          serialization_type: Hessian2
+          route_config:
+          - name: outbound|20880||dubbo-sample-provider.dubbo.svc.cluster.local
+            interface: org.apache.dubbo.samples.basic.api.DemoService
+            routes:
+            - match:
+                method:
+                  name:
+                    exact: sayHello
+              route:
+                cluster: outbound|20880|v2|dubbo-sample-provider.dubbo.svc.cluster.local

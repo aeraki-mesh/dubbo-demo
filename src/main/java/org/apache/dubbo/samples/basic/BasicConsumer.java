@@ -31,10 +31,10 @@ public class BasicConsumer {
 
         while(true){
             try{
+                Thread.sleep(5000);
                 DemoService demoService = (DemoService) context.getBean("demoService");
                 String hello = demoService.sayHello("world");
                 System.out.println(hello);   
-                Thread.sleep(5000);
             }
             catch(Exception ex){
                 ex.printStackTrace();
