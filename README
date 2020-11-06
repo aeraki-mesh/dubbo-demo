@@ -1,0 +1,1 @@
+This is a simple example to show how to use EnvoyFilter to enable Dubbo protocol support in an Istio service mesh.
