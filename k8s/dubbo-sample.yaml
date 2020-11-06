@@ -77,4 +77,3 @@ spec:
       port: 20880
       protocol: TCP
       targetPort: 20880
-
