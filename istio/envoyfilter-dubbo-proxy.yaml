@@ -13,7 +13,7 @@ spec:
         filterChain:
           filter:
             name: "envoy.filters.network.tcp_proxy"
-    patch:du'bbo
+    patch:
       operation: REPLACE
       value:
         name: envoy.filters.network.dubbo_proxy

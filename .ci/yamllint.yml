@@ -13,3 +13,4 @@ rules:
     spaces: consistent
     indent-sequences: whatever
     check-multi-line-strings: false
+    
