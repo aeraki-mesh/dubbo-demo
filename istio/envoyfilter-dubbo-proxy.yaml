@@ -9,11 +9,11 @@ spec:
   - applyTo: NETWORK_FILTER
     match:
       listener:
-        name:  ${dubbo-sample-provider-vip}_20880 #sed -i .bak "s/\${dubbo-sample-provider-vip}/`kubectl get svc dubbo-sample-provider -n dubbo -o=jsonpath='{.spec.clusterIP}'`/" istio/envoyfilter-dubbo-proxy.yaml 
+        name: ${dubbo-sample-provider-vip}_20880     # sed -i .bak "s/\${dubbo-sample-provider-vip}/`kubectl get svc dubbo-sample-provider -n dubbo -o=jsonpath='{.spec.clusterIP}'`/" istio/envoyfilter-dubbo-proxy.yaml
         filterChain:
           filter:
             name: "envoy.filters.network.tcp_proxy"
-    patch:du'bbo
+    patch:
       operation: REPLACE
       value:
         name: envoy.filters.network.dubbo_proxy
