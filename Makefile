@@ -16,7 +16,7 @@ docker-build: build
 	cp ./docker/Dockerfile.consumer $(DOCKER_TMP)Dockerfile
 	docker build -t $(DOCKER_CONSUMER_TAG) $(DOCKER_TMP)
 	rm -rf $(DOCKER_TMP)
-docker-push:
+docker-push: docker-build
 	docker push $(DOCKER_PROVIDER_TAG)
 	docker push $(DOCKER_CONSUMER_TAG)
 clean:

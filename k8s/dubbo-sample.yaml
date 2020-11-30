@@ -65,15 +65,21 @@ spec:
         - name: dubbo-sample-consumer
           image: aeraki/dubbo-sample-consumer
 ---
-apiVersion: v1
-kind: Service
+# network-tool is used for debugging purpose
+apiVersion: apps/v1
+kind: Deployment
 metadata:
-  name: dubbo-sample-provider
+  name: network-tool
 spec:
   selector:
-    app: dubbo-sample-provider
-  ports:
-    - name: tcp-dubbo
-      port: 20880
-      protocol: TCP
-      targetPort: 20880
+    matchLabels:
+      app: network-tool
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: network-tool
+    spec:
+      containers:
+        - name: network-tool
+          image: praqma/network-multitool
