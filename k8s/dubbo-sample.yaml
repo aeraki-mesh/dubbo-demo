@@ -64,6 +64,9 @@ spec:
       containers:
         - name: dubbo-sample-consumer
           image: aeraki/dubbo-sample-consumer
+          env:
+            - name: mode
+              value: demo
 ---
 # network-tool is used for debugging purpose
 apiVersion: apps/v1

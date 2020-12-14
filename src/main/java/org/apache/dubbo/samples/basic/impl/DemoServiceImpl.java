@@ -24,6 +24,8 @@ import org.apache.dubbo.samples.basic.api.DemoService;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 
 public class DemoServiceImpl implements DemoService {
 
@@ -31,7 +33,13 @@ public class DemoServiceImpl implements DemoService {
     public String sayHello(String name) {
         System.out.println("[" + new SimpleDateFormat("HH:mm:ss").format(new Date()) + "] Hello " + name +
                 ", request from consumer: " + RpcContext.getContext().getRemoteAddress());
-        return "Hello " + name + ", response from provider: " + RpcContext.getContext().getLocalAddress();
+        String address = "";
+        try {
+            address = InetAddress.getLocalHost().toString();
+        } catch (UnknownHostException e) {
+            e.printStackTrace();
+        }
+        return "Hello " + name + ", response from " + address;
     }
 
     @Override
