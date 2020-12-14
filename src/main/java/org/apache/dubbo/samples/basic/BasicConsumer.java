@@ -19,29 +19,61 @@
 
 package org.apache.dubbo.samples.basic;
 
-import org.apache.dubbo.samples.basic.api.DemoService;
+import java.io.IOException;
 
+import org.apache.dubbo.samples.basic.api.DemoService;
+import org.eclipse.jetty.server.Server;
+import org.eclipse.jetty.servlet.ServletContextHandler;
+import org.eclipse.jetty.servlet.ServletHolder;
+import org.jboss.resteasy.plugins.server.servlet.HttpServletDispatcher;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 public class BasicConsumer {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("spring/dubbo-demo-consumer.xml");
         context.start();
 
-        while(true){
-            try{
-                Thread.sleep(5000);
-                DemoService demoService = (DemoService) context.getBean("demoService");
-                String hello = demoService.sayHello("world");
-                System.out.println(hello);   
-            }
-            catch(Exception ex){
-                ex.printStackTrace();
+        startTestServer();
+
+        if(args.length>0 && args[0].equals("demo")) {
+            System.out.println("Periodically call dubbo server");
+            while (true) {
+                try {
+                    Thread.sleep(5000);
+                    DemoService demoService = (DemoService) context.getBean("demoService");
+                    String hello = demoService.sayHello("Aeraki");
+                    System.out.println(hello);
+                } catch (Exception ex) {
+                    ex.printStackTrace();
+                }
             }
         }
+    }
 
-//        System.out.println("start void test...");
-//        demoService.testVoid();
+    /**
+     * startTestServer starts a HTTP server for e2e test
+     */
+    static void startTestServer() {
+        Thread serverThread = new Thread(){
+            public void run(){
+                System.out.println("Start a http server for e2e test");
+                int port = 9009;
+                Server server = new Server(port);
+                ServletContextHandler context = new ServletContextHandler(ServletContextHandler.SESSIONS);
+                context.setContextPath("/");
+                ServletHolder h = new ServletHolder(new HttpServletDispatcher());
+                h.setInitParameter("javax.ws.rs.Application", "com.embedded.Services");
+                context.addServlet(h, "/*");
+                server.setHandler(context);
+                try {
+                    server.start();
+                    server.join();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        };
+        serverThread.start();
     }
 }
