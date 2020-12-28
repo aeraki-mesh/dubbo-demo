@@ -9,7 +9,7 @@ spec:
   - applyTo: NETWORK_FILTER
     match:
       listener:
-        name: 194.194.194.194_20880
+        name: 193.193.192.192_20880
         filterChain:
           filter:
             name: "envoy.filters.network.tcp_proxy"
@@ -32,3 +32,30 @@ spec:
                     exact: sayHello
               route:
                 cluster: outbound|20880|v2|org.apache.dubbo.samples.basic.api.demoservice
+  - applyTo: NETWORK_FILTER
+    match:
+      listener:
+        name: virtualInbound
+        filterChain:
+          destination_port: 20880
+          filter:
+            name: "envoy.filters.network.tcp_proxy"
+    patch:
+      operation: REPLACE
+      value:
+        name: envoy.filters.network.dubbo_proxy
+        typed_config:
+          "@type": type.googleapis.com/envoy.extensions.filters.network.dubbo_proxy.v3.DubboProxy
+          stat_prefix: inbound|20880||
+          protocol_type: Dubbo
+          serialization_type: Hessian2
+          route_config:
+          - name: inbound|20880||
+            interface: org.apache.dubbo.samples.basic.api.DemoService
+            routes:
+            - match:
+                method:
+                  name:
+                    exact: sayHello
+              route:
+                cluster: inbound|20880||
