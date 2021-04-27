@@ -23,9 +23,13 @@
        http://dubbo.apache.org/schema/dubbo http://dubbo.apache.org/schema/dubbo/dubbo.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
     <context:property-placeholder/>
 
-    <dubbo:application name="dubbo-sample-provider"/>
+    <dubbo:application name="dubbo-sample-provider">
+      <dubbo:parameter key="aeraki_meta_app_namespace" value="${AERAKI_META_APP_NAMESPACE}" />
+      <dubbo:parameter key="aeraki_meta_app_service_account" value="${AERAKI_META_APP_SERVICE_ACCOUNT}" />
+      <dubbo:parameter key="aeraki_meta_app_version" value="${AERAKI_META_APP_VERSION}" />
+    </dubbo:application>
 
-    <dubbo:registry  protocol="zookeeper" address="${ZK_ADDR:zookeeper}:2181" timeout="60000"/>
+    <dubbo:registry  protocol="zookeeper" address="${ZK_ADDR}" timeout="60000"/>
 
     <bean id="demoService" class="org.apache.dubbo.samples.basic.impl.DemoServiceImpl"/>
 

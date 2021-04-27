@@ -1,5 +1,10 @@
 FROM openjdk:8
 
+ENV AERAKI_META_APP_NAMESPACE=""
+ENV AERAKI_META_APP_SERVICE_ACCOUNT=""
+ENV AERAKI_META_APP_VERSION=""
+ENV ZK_ADDR="zookeeper:2181"
+
 COPY dubbo-samples-basic-1.0-SNAPSHOT.jar ./
 ENTRYPOINT java -cp ./dubbo-samples-basic-1.0-SNAPSHOT.jar org.apache.dubbo.samples.basic.BasicProvider
 
