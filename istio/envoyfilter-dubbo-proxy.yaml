@@ -31,7 +31,12 @@ spec:
                   name:
                     exact: sayHello
               route:
-                cluster: outbound|20880|v2|org.apache.dubbo.samples.basic.api.demoservice
+                weighted_clusters:
+                  clusters:
+                    - name: "outbound|9090|v1|thrift-sample-server.thrift.svc.cluster.local"
+                      weight: 30
+                    - name: "outbound|9090|v2|thrift-sample-server.thrift.svc.cluster.local"
+                      weight: 70
   - applyTo: NETWORK_FILTER
     match:
       listener:

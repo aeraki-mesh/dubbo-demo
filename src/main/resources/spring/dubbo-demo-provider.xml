@@ -23,11 +23,9 @@
        http://dubbo.apache.org/schema/dubbo http://dubbo.apache.org/schema/dubbo/dubbo.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
     <context:property-placeholder/>
 
-    <dubbo:application name="demo-provider"/>
+    <dubbo:application name="dubbo-sample-provider"/>
 
-    <dubbo:registry register="false" subscribe="false" check="false" address="none" />
-    <!-- dubbo:registry address="multicast://224.5.6.7:1234"/ -->
-    <!-- dubbo:registry address="zookeeper://${zookeeper.address:127.0.0.1}:2181"/ -->
+    <dubbo:registry  protocol="zookeeper" address="${ZK_ADDR:zookeeper}:2181" timeout="60000"/>
 
     <bean id="demoService" class="org.apache.dubbo.samples.basic.impl.DemoServiceImpl"/>
 
