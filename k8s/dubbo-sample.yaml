@@ -23,15 +23,17 @@ spec:
           env:
             - name: ZK_ADDR
               value: zookeeper:2181
-            - name: AERAKI_NAMESPACE
+            - name: AERAKI_META_APP_NAMESPACE
               valueFrom:
                 fieldRef:
                   fieldPath: metadata.namespace
-            - name: AERAKI_SERVICE_ACCOUNT
+            - name: AERAKI_META_APP_SERVICE_ACCOUNT
               valueFrom:
                 fieldRef:
                   fieldPath: spec.serviceAccountName
-            - name: AERAKI_VERSION
+            - name: AERAKI_META_WORKLOAD_SELECTOR
+              value: "app: dubbo-sample-consumer"
+            - name: AERAKI_META_APP_VERSION
               value: v1
           ports:
             - containerPort: 20880
@@ -68,6 +70,8 @@ spec:
               valueFrom:
                 fieldRef:
                   fieldPath: spec.serviceAccountName
+            - name: AERAKI_META_WORKLOAD_SELECTOR
+              value: "app: dubbo-sample-consumer"
             - name: AERAKI_META_APP_VERSION
               value: v2
           ports:
