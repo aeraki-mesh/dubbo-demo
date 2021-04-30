@@ -7,7 +7,6 @@ import java.net.URISyntaxException;
 import javax.ws.rs.Produces;
 import javax.activation.MimetypesFileTypeMap;
 */
-import org.apache.dubbo.samples.basic.api.DemoService;
 
 import java.util.Map;
 
@@ -20,6 +19,7 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.core.Response;
 
 import org.apache.dubbo.samples.basic.api.DemoService;
+import org.apache.dubbo.samples.basic.api.TestService;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 @Path("/")
@@ -44,10 +44,25 @@ public class Index {
 
     @GET
     @Path("/hello")
-    public Response  echoGet() {
+    public Response  hello() {
         try{
             DemoService demoService = (DemoService) context.getBean("demoService");
             String hello = demoService.sayHello("Aeraki");
+            System.out.println(hello);
+            return Response.status(200).entity(hello).build();
+        }
+        catch(Exception ex){
+            ex.printStackTrace();
+            return Response.status(503).entity(ex.getMessage()).build();
+        }
+    }
+
+    @GET
+    @Path("/test")
+    public Response  test() {
+        try{
+            TestService testService = (TestService ) context.getBean("testService");
+            String hello = testService.sayHello("Aeraki");
             System.out.println(hello);
             return Response.status(200).entity(hello).build();
         }

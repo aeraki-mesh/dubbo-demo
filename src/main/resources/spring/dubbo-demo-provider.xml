@@ -32,8 +32,8 @@
 
     <dubbo:registry  protocol="zookeeper" address="${ZK_ADDR}" timeout="60000"/>
 
-    <bean id="demoService" class="org.apache.dubbo.samples.basic.impl.DemoServiceImpl"/>
+    <bean id="demoProvider" class="org.apache.dubbo.samples.basic.impl.DemoProviderImpl"/>
 
-    <dubbo:service interface="org.apache.dubbo.samples.basic.api.DemoService" ref="demoService"/>
-
+    <dubbo:service interface="org.apache.dubbo.samples.basic.api.DemoService" ref="demoProvider"/>
+    <dubbo:service interface="org.apache.dubbo.samples.basic.api.TestService" ref="demoProvider"/>
 </beans>

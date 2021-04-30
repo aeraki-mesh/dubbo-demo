@@ -26,9 +26,7 @@
     <dubbo:application name="dubbo-sample-consumer"/>
 
     <dubbo:registry address="none" register="false" subscribe="false" check="false" />    
-    <!-- dubbo:registry address="multicast://224.5.6.7:1234"/ -->
-    <!--dubbo:registry address="zookeeper://${zookeeper.address:127.0.0.1}:2181"/-->
 
     <dubbo:reference id="demoService" check="true" interface="org.apache.dubbo.samples.basic.api.DemoService" url="dubbo://org.apache.dubbo.samples.basic.api.demoservice:20880" timeout="3000"/>
-
+    <dubbo:reference id="testService" check="true" interface="org.apache.dubbo.samples.basic.api.TestService" url="dubbo://org.apache.dubbo.samples.basic.api.testservice:20880" timeout="3000"/>
 </beans>

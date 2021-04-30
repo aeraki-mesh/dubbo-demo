@@ -21,13 +21,15 @@ package org.apache.dubbo.samples.basic.impl;
 
 import org.apache.dubbo.rpc.RpcContext;
 import org.apache.dubbo.samples.basic.api.DemoService;
+import org.apache.dubbo.samples.basic.api.TestService;
+
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 
-public class DemoServiceImpl implements DemoService {
+public class DemoProviderImpl implements DemoService,TestService {
 
     @Override
     public String sayHello(String name) {
