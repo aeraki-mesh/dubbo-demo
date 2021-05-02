@@ -4,7 +4,8 @@ ENV AERAKI_META_APP_NAMESPACE=""
 ENV AERAKI_META_APP_SERVICE_ACCOUNT=""
 ENV AERAKI_META_APP_VERSION=""
 ENV AERAKI_META_WORKLOAD_SELECTOR=""
-ENV ZK_ADDR="zookeeper:2181"
+ENV REGISTER_ZK="false"
+ENV ZK_ADDR="none"
 
 COPY dubbo-samples-basic-1.0-SNAPSHOT.jar ./
 ENTRYPOINT java -cp ./dubbo-samples-basic-1.0-SNAPSHOT.jar org.apache.dubbo.samples.basic.BasicProvider

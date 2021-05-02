@@ -30,7 +30,7 @@
       <dubbo:parameter key="aeraki_meta_workload_selector" value="${AERAKI_META_WORKLOAD_SELECTOR}" />
     </dubbo:application>
 
-    <dubbo:registry  protocol="zookeeper" address="${ZK_ADDR}" timeout="60000"/>
+    <dubbo:registry address="${ZK_ADDR}" register="${REGISTER_ZK}" subscribe="false" />
 
     <bean id="demoProvider" class="org.apache.dubbo.samples.basic.impl.DemoProviderImpl"/>
 
