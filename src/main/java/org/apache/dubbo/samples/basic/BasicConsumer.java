@@ -27,6 +27,7 @@ import org.eclipse.jetty.servlet.ServletContextHandler;
 import org.eclipse.jetty.servlet.ServletHolder;
 import org.jboss.resteasy.plugins.server.servlet.HttpServletDispatcher;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.apache.dubbo.rpc.RpcContext;
 
 public class BasicConsumer {
 
@@ -38,6 +39,7 @@ public class BasicConsumer {
 
         if(args.length>0 && args[0].equals("demo")) {
             System.out.println("Periodically call dubbo server");
+            RpcContext.getContext().setAttachment("batchJob", args[1]);
             while (true) {
                 try {
                     Thread.sleep(5000);

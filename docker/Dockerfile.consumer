@@ -1,7 +1,8 @@
 FROM openjdk:8
 
 ENV mode=""
+ENV batchJob="true"
 
 COPY dubbo-samples-basic-1.0-SNAPSHOT.jar ./
-ENTRYPOINT java -cp ./dubbo-samples-basic-1.0-SNAPSHOT.jar org.apache.dubbo.samples.basic.BasicConsumer $mode
+ENTRYPOINT java -cp ./dubbo-samples-basic-1.0-SNAPSHOT.jar org.apache.dubbo.samples.basic.BasicConsumer $mode $batchJob
 

@@ -28,9 +28,10 @@
       <dubbo:parameter key="aeraki_meta_app_service_account" value="${AERAKI_META_APP_SERVICE_ACCOUNT}" />
       <dubbo:parameter key="aeraki_meta_app_version" value="${AERAKI_META_APP_VERSION}" />
       <dubbo:parameter key="aeraki_meta_workload_selector" value="${AERAKI_META_WORKLOAD_SELECTOR}" />
+      <dubbo:parameter key="service_group" value="${SERVICE_GROUP}" />
     </dubbo:application>
 
-    <dubbo:registry address="${ZK_ADDR}" register="${REGISTER_ZK}" subscribe="false" />
+    <dubbo:registry address="${ZK_ADDR}" register="${REGISTER_ZK}" subscribe="false" timeout="60000"/>
 
     <bean id="demoProvider" class="org.apache.dubbo.samples.basic.impl.DemoProviderImpl"/>
 
