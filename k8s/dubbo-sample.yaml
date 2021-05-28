@@ -100,6 +100,7 @@ metadata:
   name: dubbo-sample-consumer
   labels:
     app: dubbo-sample-consumer
+    istio-locality: bj.800002
 spec:
   selector:
     matchLabels:
