@@ -20,6 +20,7 @@
 package org.apache.dubbo.samples.basic.impl;
 
 import org.apache.dubbo.rpc.RpcContext;
+import org.apache.dubbo.samples.basic.api.ComplexService;
 import org.apache.dubbo.samples.basic.api.DemoService;
 import org.apache.dubbo.samples.basic.api.TestService;
 
@@ -29,7 +30,7 @@ import java.util.Date;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 
-public class DemoProviderImpl implements DemoService,TestService {
+public class DemoProviderImpl implements DemoService,TestService, ComplexService {
 
     @Override
     public String sayHello(String name) {

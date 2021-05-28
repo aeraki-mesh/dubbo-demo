@@ -18,6 +18,7 @@ import javax.ws.rs.PathParam;
 
 import javax.ws.rs.core.Response;
 
+import org.apache.dubbo.samples.basic.api.ComplexService;
 import org.apache.dubbo.samples.basic.api.DemoService;
 import org.apache.dubbo.samples.basic.api.TestService;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
@@ -63,6 +64,21 @@ public class Index {
         try{
             TestService testService = (TestService ) context.getBean("testService");
             String hello = testService.sayHello("Aeraki");
+            System.out.println(hello);
+            return Response.status(200).entity(hello).build();
+        }
+        catch(Exception ex){
+            ex.printStackTrace();
+            return Response.status(503).entity(ex.getMessage()).build();
+        }
+    }
+
+    @GET
+    @Path("/testcomplexservice")
+    public Response  testComplexService() {
+        try{
+            ComplexService complexService = (ComplexService) context.getBean("complexService");
+            String hello = complexService.sayHello("Aeraki");
             System.out.println(hello);
             return Response.status(200).entity(hello).build();
         }

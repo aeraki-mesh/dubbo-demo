@@ -28,6 +28,7 @@
       <dubbo:parameter key="aeraki_meta_app_service_account" value="${AERAKI_META_APP_SERVICE_ACCOUNT}" />
       <dubbo:parameter key="aeraki_meta_app_version" value="${AERAKI_META_APP_VERSION}" />
       <dubbo:parameter key="aeraki_meta_workload_selector" value="${AERAKI_META_WORKLOAD_SELECTOR}" />
+      <dubbo:parameter key="aeraki_meta_locality" value="${AERAKI_META_LOCALITY}" />
       <dubbo:parameter key="service_group" value="${SERVICE_GROUP}" />
     </dubbo:application>
 
@@ -36,5 +37,7 @@
     <bean id="demoProvider" class="org.apache.dubbo.samples.basic.impl.DemoProviderImpl"/>
 
     <dubbo:service interface="org.apache.dubbo.samples.basic.api.DemoService" ref="demoProvider"/>
-    <dubbo:service interface="org.apache.dubbo.samples.basic.api.TestService" ref="demoProvider"/>
+    <dubbo:service interface="org.apache.dubbo.samples.basic.api.TestService" ref="demoProvider" />
+    <dubbo:service interface="org.apache.dubbo.samples.basic.api.ComplexService" ref="demoProvider" group="test" version="1.0.0"/>
+    <dubbo:service interface="org.apache.dubbo.samples.basic.api.ComplexService" ref="demoProvider" group="product" version="2.0.0"/>
 </beans>

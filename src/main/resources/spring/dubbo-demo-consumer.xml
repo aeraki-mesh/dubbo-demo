@@ -29,4 +29,6 @@
 
     <dubbo:reference id="demoService" check="true" interface="org.apache.dubbo.samples.basic.api.DemoService" url="dubbo://org.apache.dubbo.samples.basic.api.demoservice:20880" timeout="3000"/>
     <dubbo:reference id="testService" check="true" interface="org.apache.dubbo.samples.basic.api.TestService" url="dubbo://org.apache.dubbo.samples.basic.api.testservice:20880" timeout="3000"/>
+    <dubbo:reference id="complexService" check="true" interface="org.apache.dubbo.samples.basic.api.ComplexService" url="dubbo://org.apache.dubbo.samples.basic.api.complexservice-test-1-0-0:20880" group="test" version="1.0.0" timeout="3000"/>
 </beans>
+0
