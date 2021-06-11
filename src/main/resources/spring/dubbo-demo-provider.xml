@@ -32,7 +32,12 @@
       <dubbo:parameter key="service_group" value="${SERVICE_GROUP}" />
     </dubbo:application>
 
-    <dubbo:registry address="${ZK_ADDR}" register="${REGISTER_ZK}" subscribe="false" timeout="60000"/>
+    <dubbo:registry address="${REGISTRY_ADDR}" register="${REGISTER}" subscribe="false" timeout="60000">
+        <!--
+        <dubbo:parameter key="group" value="test" />
+        <dubbo:parameter key="namespace" value="test" />
+        -->
+    </dubbo:registry>
 
     <bean id="demoProvider" class="org.apache.dubbo.samples.basic.impl.DemoProviderImpl"/>
 
