@@ -40,6 +40,7 @@ public class BasicConsumer {
         if(args.length>0 && args[0].equals("demo")) {
             System.out.println("Periodically call dubbo server");
             RpcContext.getContext().setAttachment("batchJob", args[1]);
+            RpcContext.getContext().setAttachment("foo", "bar");
             while (true) {
                 try {
                     Thread.sleep(5000);

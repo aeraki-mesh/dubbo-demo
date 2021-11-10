@@ -18,6 +18,7 @@ import javax.ws.rs.PathParam;
 
 import javax.ws.rs.core.Response;
 
+import org.apache.dubbo.rpc.RpcContext;
 import org.apache.dubbo.samples.basic.api.ComplexService;
 import org.apache.dubbo.samples.basic.api.DemoService;
 import org.apache.dubbo.samples.basic.api.TestService;
@@ -48,6 +49,7 @@ public class Index {
     public Response  hello() {
         try{
             DemoService demoService = (DemoService) context.getBean("demoService");
+            RpcContext.getContext().setAttachment("foo", "bar");
             String hello = demoService.sayHello("Aeraki");
             System.out.println(hello);
             return Response.status(200).entity(hello).build();
