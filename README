@@ -1,1 +1,1 @@
-This is a simple example to show how to use EnvoyFilter to enable Dubbo protocol support in an Istio service mesh.
+This is a demo application to show how to manage Dubbo services in Aeraki Mesh.
