@@ -27,8 +27,10 @@ import org.apache.dubbo.samples.basic.api.TestService;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Map;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
+import org.apache.dubbo.rpc.RpcContext;
 
 public class DemoProviderImpl implements DemoService,TestService, ComplexService {
 
@@ -36,6 +38,11 @@ public class DemoProviderImpl implements DemoService,TestService, ComplexService
     public String sayHello(String name) {
         System.out.println("[" + new SimpleDateFormat("HH:mm:ss").format(new Date()) + "] Hello " + name +
                 ", request from consumer: " + RpcContext.getContext().getRemoteAddress());
+        Map<String, String> attachments = RpcContext.getContext().getAttachments();
+        System.out.println("Message headers:");
+        for (Map.Entry<String, String> entry : attachments.entrySet()) {
+            System.out.println("      key: " + entry.getKey() + " value: " + entry.getValue());
+        }
         String address = "";
         try {
             address = InetAddress.getLocalHost().toString();
