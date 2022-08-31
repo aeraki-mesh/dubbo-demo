@@ -45,4 +45,7 @@
     <dubbo:service interface="org.apache.dubbo.samples.basic.api.TestService" ref="demoProvider" />
     <dubbo:service interface="org.apache.dubbo.samples.basic.api.ComplexService" ref="demoProvider" group="test" version="1.0.0"/>
     <dubbo:service interface="org.apache.dubbo.samples.basic.api.ComplexService" ref="demoProvider" group="product" version="2.0.0"/>
+
+    <dubbo:reference id="secondService" check="true" interface="org.apache.dubbo.samples.basic.api.SecondService" url="dubbo://org.apache.dubbo.samples.basic.api.secondservice:20880" timeout="3000"/>
 </beans>
+

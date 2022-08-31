@@ -3,6 +3,7 @@ OUT?=./target
 DOCKER_TMP?=$(OUT)/docker_temp/
 DOCKER_PROVIDER_TAG?=aeraki/dubbo-sample-provider:latest
 DOCKER_CONSUMER_TAG?=aeraki/dubbo-sample-consumer:latest
+DOCKER_SECOND_PROVIDER_TAG=aeraki/dubbo-sample-second-provider:latest
 BINARY_NAME?=$(OUT)/dubbo-samples-basic-1.0-SNAPSHOT.jar
 
 build:
@@ -15,10 +16,13 @@ docker-build: build
 	docker build -t $(DOCKER_PROVIDER_TAG) $(DOCKER_TMP)
 	cp ./docker/Dockerfile.consumer $(DOCKER_TMP)Dockerfile
 	docker build -t $(DOCKER_CONSUMER_TAG) $(DOCKER_TMP)
+	cp ./docker/Dockerfile.second-provider $(DOCKER_TMP)Dockerfile
+	docker build -t $(DOCKER_SECOND_PROVIDER_TAG) $(DOCKER_TMP)
 	rm -rf $(DOCKER_TMP)
 docker-push: docker-build
 	docker push $(DOCKER_PROVIDER_TAG)
 	docker push $(DOCKER_CONSUMER_TAG)
+	docker push $(DOCKER_SECOND_PROVIDER_TAG)
 clean:
 	rm -rf $(OUT)
 

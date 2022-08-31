@@ -20,10 +20,8 @@
 package org.apache.dubbo.samples.basic.impl;
 
 import org.apache.dubbo.rpc.RpcContext;
-import org.apache.dubbo.samples.basic.api.ComplexService;
-import org.apache.dubbo.samples.basic.api.DemoService;
-import org.apache.dubbo.samples.basic.api.TestService;
 import org.apache.dubbo.samples.basic.api.SecondService;
+
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -31,19 +29,8 @@ import java.util.Map;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import org.apache.dubbo.rpc.RpcContext;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.ApplicationContextAware;
-import org.springframework.beans.BeansException;
-import org.springframework.beans.factory.annotation.Autowired;
 
-public class DemoProviderImpl implements DemoService,TestService, ComplexService, ApplicationContextAware {
-
-    @Autowired
-    private ApplicationContext context;
-
-    public void setApplicationContext(ApplicationContext applicationContext) throws BeansException{
-        context = applicationContext;
-    }
+public class SecondDemoProviderImpl implements SecondService {
 
     @Override
     public String sayHello(String name) {
@@ -60,16 +47,6 @@ public class DemoProviderImpl implements DemoService,TestService, ComplexService
         } catch (UnknownHostException e) {
             e.printStackTrace();
         }
-
-        // call the scenod service to form a tracing chain
-        try{
-            SecondService secondDemoService = (SecondService) context.getBean("secondService");
-            secondDemoService.sayHello("Aeraki");
-        }
-        catch(Exception ex){
-            ex.printStackTrace();
-        }
-
         return "Hello " + name + ", response from " + address;
     }
 

@@ -1,0 +1,14 @@
+FROM openjdk:8
+
+ENV AERAKI_META_APP_NAMESPACE=""
+ENV AERAKI_META_APP_SERVICE_ACCOUNT=""
+ENV AERAKI_META_APP_VERSION=""
+ENV AERAKI_META_WORKLOAD_SELECTOR=""
+ENV AERAKI_META_LOCALITY=""
+ENV SERVICE_GROUP=""
+ENV REGISTER="false"
+ENV REGISTRY_ADDR="none"
+
+COPY dubbo-samples-basic-1.0-SNAPSHOT.jar ./
+ENTRYPOINT java -cp ./dubbo-samples-basic-1.0-SNAPSHOT.jar org.apache.dubbo.samples.basic.SecondProvider
+

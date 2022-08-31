@@ -23,12 +23,23 @@
        http://dubbo.apache.org/schema/dubbo http://dubbo.apache.org/schema/dubbo/dubbo.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
     <context:property-placeholder/>
 
-    <dubbo:application name="dubbo-sample-consumer"/>
+    <dubbo:application name="dubbo-sample-provider">
+      <dubbo:parameter key="aeraki_meta_app_namespace" value="${AERAKI_META_APP_NAMESPACE}" />
+      <dubbo:parameter key="aeraki_meta_app_service_account" value="${AERAKI_META_APP_SERVICE_ACCOUNT}" />
+      <dubbo:parameter key="aeraki_meta_app_version" value="${AERAKI_META_APP_VERSION}" />
+      <dubbo:parameter key="aeraki_meta_workload_selector" value="${AERAKI_META_WORKLOAD_SELECTOR}" />
+      <dubbo:parameter key="aeraki_meta_locality" value="${AERAKI_META_LOCALITY}" />
+      <dubbo:parameter key="service_group" value="${SERVICE_GROUP}" />
+    </dubbo:application>
 
-    <dubbo:registry address="none" register="false" subscribe="false" check="false" />    
+    <dubbo:registry address="${REGISTRY_ADDR}" register="${REGISTER}" subscribe="false" timeout="60000">
+        <!--
+        <dubbo:parameter key="group" value="test" />
+        <dubbo:parameter key="namespace" value="test" />
+        -->
+    </dubbo:registry>
 
-    <dubbo:reference id="demoService" check="true" interface="org.apache.dubbo.samples.basic.api.DemoService" url="dubbo://org.apache.dubbo.samples.basic.api.demoservice:20880" timeout="3000"/>
-    <dubbo:reference id="testService" check="true" interface="org.apache.dubbo.samples.basic.api.TestService" url="dubbo://org.apache.dubbo.samples.basic.api.testservice:20880" timeout="3000"/>
-    <dubbo:reference id="complexService" check="true" interface="org.apache.dubbo.samples.basic.api.ComplexService" url="dubbo://org.apache.dubbo.samples.basic.api.complexservice-test-1-0-0:20880" group="test" version="1.0.0" timeout="3000"/>
-    <dubbo:reference id="secondService" check="true" interface="org.apache.dubbo.samples.basic.api.SecondService" url="dubbo://org.apache.dubbo.samples.basic.api.secondservice:20880" timeout="3000"/>
+     <bean id="secondDemoProvider" class="org.apache.dubbo.samples.basic.impl.SecondDemoProviderImpl"/>
+
+    <dubbo:service interface="org.apache.dubbo.samples.basic.api.SecondService" ref="secondDemoProvider"/>
 </beans>
