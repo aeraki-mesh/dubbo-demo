@@ -10,5 +10,5 @@ ENV REGISTER="false"
 ENV REGISTRY_ADDR="none"
 
 COPY dubbo-samples-basic-1.0-SNAPSHOT.jar ./
-ENTRYPOINT java -cp ./dubbo-samples-basic-1.0-SNAPSHOT.jar org.apache.dubbo.samples.basic.BasicProvider
+ENTRYPOINT java -Ddubbo.resolve.file=./dubbo-resolve.properties -cp ./dubbo-samples-basic-1.0-SNAPSHOT.jar org.apache.dubbo.samples.basic.BasicProvider
 

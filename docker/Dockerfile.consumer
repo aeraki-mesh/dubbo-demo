@@ -4,5 +4,5 @@ ENV mode=""
 ENV batchJob="true"
 
 COPY dubbo-samples-basic-1.0-SNAPSHOT.jar ./
-ENTRYPOINT java -cp ./dubbo-samples-basic-1.0-SNAPSHOT.jar org.apache.dubbo.samples.basic.BasicConsumer $mode $batchJob
+ENTRYPOINT java -Ddubbo.resolve.file=./dubbo-resolve.properties -cp ./dubbo-samples-basic-1.0-SNAPSHOT.jar org.apache.dubbo.samples.basic.BasicConsumer $mode $batchJob
 
