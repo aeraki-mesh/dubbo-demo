@@ -9,6 +9,7 @@ ENV SERVICE_GROUP=""
 ENV REGISTER="false"
 ENV REGISTRY_ADDR="none"
 
-COPY dubbo-samples-basic-1.0-SNAPSHOT.jar ./
-ENTRYPOINT java -Ddubbo.resolve.file=./dubbo-resolve.properties -cp ./dubbo-samples-basic-1.0-SNAPSHOT.jar org.apache.dubbo.samples.basic.BasicProvider
+COPY dubbo-samples-basic-provider.jar ./
+COPY dubbo-resolve.properties ./
+ENTRYPOINT java -Ddubbo.resolve.file=./dubbo-resolve.properties -cp ./dubbo-samples-basic-provider.jar org.apache.dubbo.samples.basic.BasicProvider
 

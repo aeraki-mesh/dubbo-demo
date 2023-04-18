@@ -315,27 +315,29 @@
 
     <build>
         <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <version>${maven-compiler-plugin.version}</version>
-                <configuration>
-                    <source>${source.level}</source>
-                    <target>${target.level}</target>
-                </configuration>
-            </plugin>
+          <plugin>
+              <groupId>org.apache.maven.plugins</groupId>
+              <artifactId>maven-compiler-plugin</artifactId>
+              <version>${maven-compiler-plugin.version}</version>
+              <configuration>
+                  <source>${source.level}</source>
+                  <target>${target.level}</target>
+              </configuration>
+          </plugin>
 
-        <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-shade-plugin</artifactId>
-        <version>3.2.4</version>
-        <executions>
+          <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-shade-plugin</artifactId>
+          <version>3.2.4</version>
+          <executions>
           <execution>
+            <id>consumer</id>
             <phase>package</phase>
             <goals>
               <goal>shade</goal>
             </goals>
             <configuration>
+              <outputFile>target/${project.artifactId}-consumer.jar</outputFile>
               <transformers>
                 <transformer
                         implementation="org.apache.maven.plugins.shade.resource.AppendingTransformer">
@@ -356,20 +358,106 @@
                         <addHeader>false</addHeader>
                     </transformer>
               </transformers>
-                <filters>
+              <filters>
                     <filter>
                         <artifact>*:*</artifact>
                         <excludes>
                             <exclude>META-INF/*.SF</exclude>
                             <exclude>META-INF/*.DSA</exclude>
                             <exclude>META-INF/*.RSA</exclude>
+                            <exclude>spring/dubbo-demo-provider.xml</exclude>
+                            <exclude>spring/dubbo-second-provider.xml</exclude>
                         </excludes>
                     </filter>
                 </filters>
             </configuration>
           </execution>
+          <execution>
+              <id>provider</id>
+              <phase>package</phase>
+              <goals>
+                  <goal>shade</goal>
+              </goals>
+              <configuration>
+                  <outputFile>target/${project.artifactId}-provider.jar</outputFile>
+                  <transformers>
+                      <transformer
+                              implementation="org.apache.maven.plugins.shade.resource.AppendingTransformer">
+                          <resource>META-INF/spring.handlers</resource>
+                      </transformer>
+                      <transformer
+                              implementation="org.apache.maven.plugins.shade.resource.AppendingTransformer">
+                          <resource>META-INF/spring.schemas</resource>
+                      </transformer>
+                      <transformer
+                              implementation="org.apache.maven.plugins.shade.resource.AppendingTransformer">
+                          <resource>META-INF/spring.tooling</resource>
+                      </transformer>
+                      <transformer
+                              implementation="org.apache.maven.plugins.shade.resource.ApacheLicenseResourceTransformer" />
+                      <transformer
+                              implementation="org.apache.maven.plugins.shade.resource.ApacheNoticeResourceTransformer">
+                          <addHeader>false</addHeader>
+                      </transformer>
+                  </transformers>
+                  <filters>
+                      <filter>
+                          <artifact>*:*</artifact>
+                          <excludes>
+                              <exclude>META-INF/*.SF</exclude>
+                              <exclude>META-INF/*.DSA</exclude>
+                              <exclude>META-INF/*.RSA</exclude>
+                              <exclude>spring/dubbo-demo-consumer.xml</exclude>
+                              <exclude>spring/dubbo-second-provider.xml</exclude>
+                          </excludes>
+                      </filter>
+                  </filters>
+              </configuration>
+            </execution>
+          <execution>
+                  <id>second-provider</id>
+                  <phase>package</phase>
+                  <goals>
+                      <goal>shade</goal>
+                  </goals>
+                  <configuration>
+                      <outputFile>target/${project.artifactId}-second-provider.jar</outputFile>
+                      <transformers>
+                          <transformer
+                                  implementation="org.apache.maven.plugins.shade.resource.AppendingTransformer">
+                              <resource>META-INF/spring.handlers</resource>
+                          </transformer>
+                          <transformer
+                                  implementation="org.apache.maven.plugins.shade.resource.AppendingTransformer">
+                              <resource>META-INF/spring.schemas</resource>
+                          </transformer>
+                          <transformer
+                                  implementation="org.apache.maven.plugins.shade.resource.AppendingTransformer">
+                              <resource>META-INF/spring.tooling</resource>
+                          </transformer>
+                          <transformer
+                                  implementation="org.apache.maven.plugins.shade.resource.ApacheLicenseResourceTransformer" />
+                          <transformer
+                                  implementation="org.apache.maven.plugins.shade.resource.ApacheNoticeResourceTransformer">
+                              <addHeader>false</addHeader>
+                          </transformer>
+                      </transformers>
+                      <filters>
+                          <filter>
+                              <artifact>*:*</artifact>
+                              <excludes>
+                                  <exclude>META-INF/*.SF</exclude>
+                                  <exclude>META-INF/*.DSA</exclude>
+                                  <exclude>META-INF/*.RSA</exclude>
+                                  <exclude>spring/dubbo-demo-provider.xml</exclude>
+                                  <exclude>spring/dubbo-demo-consumer.xml</exclude>
+                              </excludes>
+                          </filter>
+                      </filters>
+                  </configuration>
+              </execution>
         </executions>
-      </plugin>
-        </plugins>
+          </plugin>
+          </plugins>
     </build>
 </project>

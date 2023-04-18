@@ -3,6 +3,7 @@ FROM openjdk:8
 ENV mode=""
 ENV batchJob="true"
 
-COPY dubbo-samples-basic-1.0-SNAPSHOT.jar ./
-ENTRYPOINT java -Ddubbo.resolve.file=./dubbo-resolve.properties -cp ./dubbo-samples-basic-1.0-SNAPSHOT.jar org.apache.dubbo.samples.basic.BasicConsumer $mode $batchJob
+COPY dubbo-samples-basic-consumer.jar ./
+COPY dubbo-resolve.properties ./
+ENTRYPOINT java -Ddubbo.resolve.file=./dubbo-resolve.properties -cp ./dubbo-samples-basic-consumer.jar org.apache.dubbo.samples.basic.BasicConsumer $mode $batchJob
 
