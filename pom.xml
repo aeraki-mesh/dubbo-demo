@@ -30,7 +30,7 @@
         <target.level>1.8</target.level>
         <dubbo.version>2.7.21</dubbo.version>
         <junit.version>4.12</junit.version>
-        <spring.version>5.3.8</spring.version>
+        <spring.version>5.3.27</spring.version>
         <docker-maven-plugin.version>0.30.0</docker-maven-plugin.version>
         <jib-maven-plugin.version>1.2.0</jib-maven-plugin.version>
         <maven-compiler-plugin.version>3.7.0</maven-compiler-plugin.version>
